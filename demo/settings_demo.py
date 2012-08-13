@@ -5,10 +5,12 @@ gettext = lambda s: s
 
 DEBUG = True
 
-DATABASES = {'default':
-             {'ENGINE': 'django.db.backends.sqlite3',
-              'NAME': os.path.join(os.path.dirname(__file__), 'demo.db')}
-             }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'demo.db',
+    }
+}
 
 TIME_ZONE = 'Europe/Paris'
 
@@ -56,7 +58,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     )
 
-ROOT_URLCONF = 'demo.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
@@ -88,7 +90,9 @@ INSTALLED_APPS = (
     'zinnia',
     'tagging',
     'django_xmlrpc',
+    'south',
+    'stdimage',
     )
 
-from zinnia.xmlrpc import ZINNIA_XMLRPC_METHODS
-XMLRPC_METHODS = ZINNIA_XMLRPC_METHODS
+#from zinnia.xmlrpc import ZINNIA_XMLRPC_METHODS
+#XMLRPC_METHODS = ZINNIA_XMLRPC_METHODS

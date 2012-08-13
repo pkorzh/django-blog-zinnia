@@ -4,6 +4,21 @@ from django.contrib.auth.models import User
 
 from zinnia.managers import entries_published
 from zinnia.managers import AuthorPublishedManager
+from zinnia.settings import UPLOAD_TO
+
+from stdimage import StdImageField
+
+try:
+    from south.modelsinspector import add_introspection_rules
+
+    rules = [((StdImageField,), [],
+                  {'size': ['size', {"default": None}],
+                   'thumbnail_size': ['thumbnail_size', {"default": None}],
+                   'upload_to': ['upload_to', {"default": ""}],
+                   })]
+    add_introspection_rules(rules, ["^stdimage\.fields.\StdImageField"])
+except ImportError:
+    pass
 
 
 class Author(User):
@@ -30,3 +45,15 @@ class Author(User):
         """Author's Meta"""
         app_label = 'zinnia'
         proxy = True
+
+class AuthorProfile(models.Model):
+    author = models.ForeignKey(Author, unique=True)
+    about_text = models.TextField(null=True, blank=True)
+    photo = StdImageField(upload_to=UPLOAD_TO, size=(1024, 1024),thumbnail_size=(150, 150), null=True, blank=True)
+
+    def __unicode__(self):
+        return self.author.get_full_name()
+
+    class Meta:
+        app_label = 'zinnia'
+Author.author_profile = property(lambda a: AuthorProfile.objects.get_or_create(author=a)[0])

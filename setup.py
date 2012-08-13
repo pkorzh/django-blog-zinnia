@@ -36,4 +36,5 @@ setup(name='django-blog-zinnia',
                         'django-xmlrpc>=0.1.3',
                         'pyparsing>=1.5.5',
                         'pytz',
+                        'django-stdimage==0.2.2'
                         ])
