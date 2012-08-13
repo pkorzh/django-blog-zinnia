@@ -1,5 +1,7 @@
 *~
 *.pyc
+*.db
+*.DS_Store
 .noseids
 TODO.txt
 README.html
